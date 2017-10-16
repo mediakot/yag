@@ -1,8 +1,0 @@
-{
-  "styles": {
-    "webixCss" : {
-      "version":"5.0.0",
-      "src":"assets/plugins/evoWGrid/css/skins/[+style+].css"
-    }
-  }
-}

@@ -14,4 +14,22 @@
  * @lastupdate 15.10.2017
  */
 
- return require MODX_BASE_PATH.'assets/plugins/yag/plugin.yag.php';
+if (IN_MANAGER_MODE != 'true') die();
+
+$output = '';
+global $modx_lang_attribute;
+global $_lang;
+
+	$e = &$modx->Event;
+	if ($e->name == 'OnDocFormRender')
+	{
+		include_once(MODX_BASE_PATH . 'assets/plugins/yag/lib/core.class.php');
+		$yagrid = new \YAGcore\YAGcore($modx, $modx_lang_attribute, $_lang);
+		if ($modx->getAllChildren($id)){
+        $output = $yagrid->render();
+		} else {
+			return;
+		}
+		//$modx->logEvent(123, 1, $output, 'Всё Ок evoWGrid');
+		if ($output) $e->output($output);
+	}
