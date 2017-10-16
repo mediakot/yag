@@ -1,0 +1,7 @@
+{
+  "styles": {
+    "Wevix UI" : {
+      "version":"1.5.2",
+      "src":"assets/plugins/evoWGrid/css/webix.css"
+    }
+}
