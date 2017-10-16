@@ -2,7 +2,7 @@
 Плагин для удобного редактирования множества документов в табличном виде
 
 ## О плагине
-Основано на Webix https://webix.com/download-webix-gpl/ и DocLister(SimpleTab)
+Основано на Webix https://webix.com/download-webix-gpl/ и DocLister(SimpleTab) https://github.com/AgelxNash/DocLister
 
 ## Возможности
 <ul>
