@@ -5,7 +5,9 @@
 Основано на Webix https://webix.com/download-webix-gpl/ и DocLister(SimpleTab)
 
 ## Возможности
-Экспорт/Импорт XLSX
-Full-ajax
-Функция отмены действий Undo
-inline или modal редактирование richtext
+<ul>
+	<li>Экспорт/Импорт XLSX</li>
+	<li>Full-ajax</li>
+	<li>Функция отмены действий Undo</li>
+	<li>inline или modal редактирование richtext</li>
+</ul>
