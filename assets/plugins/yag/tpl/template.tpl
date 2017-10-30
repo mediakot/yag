@@ -1,5 +1,5 @@
 <div id="yag" class="tab-page">
-<h2 class="tab" id="yag_tab">[+tabName+]</h2>
+<h2 class="tab" id="yag_tab">[+tabname+]</h2>
 <div id="yag_container" style="width:100%; margin:10px; border:1px solid #ccc"></div>
 </div>
 <div class="pagerB"></div>
