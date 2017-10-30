@@ -10968,8 +10968,6 @@ webix.Undo= {
 		this.data.attachEvent("onDataUpdate", function(id, data, old){
 
 			view._addToHistory(id+"", old, "update");
-			console.log("undoHistory")
-			console.dir(view._undoHistory)
 		});
 		this.data.attachEvent("onStoreUpdated", function(id, item, mode){
 			var data = null;
