@@ -1,0 +1,8 @@
+{
+  "styles": {
+    "webixCss" : {
+      "version":"5.0.0",
+      "src":"assets/plugins/yag/css/skins/[+style+].css"
+    }
+  }
+}
