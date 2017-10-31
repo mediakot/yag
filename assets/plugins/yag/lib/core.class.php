@@ -115,7 +115,7 @@ public function __construct($modx, $lang_attribute = 'en', $_lang)
     "true":"1","false":"0","undefined":"0"},';//Checkbox
                     break;
                 case ($tvCaption['type'] == 'image'):
-                    $editor = 'template: "<input type=text value=/#images#><img src=/#images#>", editor:"imageField",';//image
+                    $editor = 'template: "<input type=text value=/#'.$value[0].'#><img src=/#'.$value[0].'#>", editor:"imageField",';//image
                     break;
                 case ($tvCaption['type'] == 'listbox')://listbox и radio
                 case ($tvCaption['type'] == 'option'):
