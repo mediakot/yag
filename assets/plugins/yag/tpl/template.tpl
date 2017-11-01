@@ -423,8 +423,9 @@ function to_json(workbook) {
                                         //Для правильного отображения картинок, вставленных в контент
                                         for(var key in data.pull){
                                             if (data.pull.hasOwnProperty(key)) {
-                                            var content = data.pull[key].content;
 
+                                            var content = data.pull[key].content;
+                                            if(!content) continue;
                                             content = content.replace(new RegExp('src="assets','mg'),'src="\/assets');
                                             data.pull[key].content = content;
                                             }
