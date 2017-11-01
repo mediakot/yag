@@ -124,7 +124,6 @@ class yagController extends AbstractController
         $this->dlParams['parents'] = $this->rid;
         $this->dlParams['selectFields'] = 'id,pagetitle,parent';
         $this->dlParams['showParent'] = '1';
-        $this->modx->logEvent(123, 1, var_export($this->dlParams,true) , 'Test yag controller');
         return $this->listing();
     }
 
