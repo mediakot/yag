@@ -378,6 +378,7 @@ function to_json(workbook) {
                                 pager: "pagerA",
                                 fixedRowHeight: false,
                                 rowLineHeight: 25,
+                                minHeight: 50,
                                 rowHeight: 180,
                                 editable: true,
                                 resizeColumn: [+resizeColumns+],
@@ -388,9 +389,9 @@ function to_json(workbook) {
                                 scrollAlignY: true,
                                 undo: true,
                                 on: {
-                                      "onBeforeLoad":function(){
-                                                                this.showOverlay("Loading...");
-                                                          },
+                                    "onBeforeLoad":function(){
+                                         this.showOverlay("Загрузка...");
+                                    },
                                     "onAfterLoad": function() {
                                         this.adjustRowHeight("content");
                                         //Действия с помеченными на удаление документами
