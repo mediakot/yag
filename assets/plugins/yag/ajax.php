@@ -27,7 +27,7 @@ if(!isset($_SESSION['mgrValidated'])){
      require_once (MODX_BASE_PATH . 'assets/plugins/yag/lib/controller.class.php');
      $controllerClass = '\yag\yagController';
  }
- $modx->logEvent(1, 1, var_export($mode,true) , $_REQUEST['mode']);
+
  $controller = new $controllerClass($modx);
 if($controller instanceof \SimpleTab\AbstractController){
 	if (!empty($mode) && method_exists($controller, $mode)) {
