@@ -19,7 +19,6 @@
     color: #111;
 }
 
-
 .deletedRow {
     background-color: #EEAAAA;
 }
@@ -35,7 +34,8 @@ var $$$ = webix.$$; //Алиас, потому что псевдоним $$ за
 var itemUpdate = []; //для апдейта ячейки, чтобы коректно работало Undo
 var deletedAction = "[+deletedAction+]"; //Действие с удаленными документами
 var deletedItems = []; //Для сохранения удаленных доков
-//Custom разбор данных для дерева документов
+
+//Custom разбор данных для дерева документов (Добавление нового документа)
 webix.DataDriver.custom = webix.extend({
     arr2hash: function(data) {
         var hash = {};
@@ -146,13 +146,8 @@ function BrowseServer(ctrl, node) {
 function SetUrl(url) {
     lastImageCtrl.value = url;
     itemUpdate[idEdited.column] = url;
-    //$$$('grid').updateItem(idEdited, itemUpdate);
     $$$('grid').editStop();
     $$$('grid').callEvent("onEditorChange", [idEdited, itemUpdate[idEdited.column]]);
-    // var item = $$$('grid').getItem(thisNode.row);
-    // item[thisNode.column] = url;
-    // $$$('grid').updateItem(thisNode.row, itemUpdate);
-    //webix.ajax().post("[+url+]?mode=setData", {id:thisNode.row,field:thisNode.column,value:url});
 }
 //Сохранение из модального окна с richtext
 function rtSave(webix, richtext, id) {
@@ -346,6 +341,7 @@ function to_json(workbook) {
                                     },
                                     width: 80
                                 },
+                                //Добавить новый документ
                                 {
                                     view: "button",
                                     type: "iconButton",
@@ -354,7 +350,12 @@ function to_json(workbook) {
                                     icon: "plus-square-o",
                                     width: 110,
                                     click: function() {
-                                        $$$("newDoc").show();
+                                        webix.ajax().post("[+url+]?mode=getTreeData", {id:[+id+]},function(text){
+                                                $$$('treeDocs').parse(text,'custom');
+                                                $$$('treeDocs').openAll();
+
+                                        })
+                                       $$$("newDoc").show();
                                     }
                                 }
                             ]
@@ -546,7 +547,7 @@ function to_json(workbook) {
                                 template: function(obj, common) {
                                     return common.icon(obj, common) + common.folder(obj, common) + "<span>" + obj.title + " (" + obj.id + ")</span>"
                                 },
-                                url: "[+url+]?mode=getTreeData&id=[+id+]",
+                                //url: "[+url+]?mode=getTreeData&id=[+id+]",
                             },
                             {
                                 //Добавление нового документа
@@ -556,11 +557,6 @@ function to_json(workbook) {
                                 elements: [{ view: "text", label: "Pagetitle", name: "pagetitle" }, ]
                             }
                         ]
-                    },
-                    on: {
-                        "onShow": function() {
-                            $$$('treeDocs').openAll();
-                        }
                     }
                 })
             });
