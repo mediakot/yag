@@ -418,7 +418,7 @@ function to_json(workbook) {
 
                                         this.hideOverlay()
                                     },
-                                    "onBeforeRender": webix.once(function(data) {
+                                    "onBeforeRender": function(data) {
                                         //Для правильного отображения картинок, вставленных в контент
                                         for(var key in data.pull){
                                             if (data.pull.hasOwnProperty(key)) {
@@ -428,7 +428,7 @@ function to_json(workbook) {
                                             data.pull[key].content = content;
                                             }
                                         }
-                                    }),
+                                    },
                                     "onEditorChange": function(id, value) {
                                         //if (!value) return false;
                                         webix.ajax().post("[+url+]?mode=setData", { id: id.row, field: id.column, value: value }, function(text) {
@@ -546,7 +546,7 @@ function to_json(workbook) {
                                 template: function(obj, common) {
                                     return common.icon(obj, common) + common.folder(obj, common) + "<span>" + obj.title + " (" + obj.id + ")</span>"
                                 },
-                                url: "[+url+]?mode=getTree&id=[+id+]",
+                                url: "[+url+]?mode=getTreeData&id=[+id+]",
                             },
                             {
                                 //Добавление нового документа
