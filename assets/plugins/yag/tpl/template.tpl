@@ -19,6 +19,8 @@
 
 .unPub{
     opacity: 0.5;
+    background-color: #cecece;
+    color: #111;
 }
 
 </style>
