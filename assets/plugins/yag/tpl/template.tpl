@@ -171,7 +171,8 @@ function newDocSave(id, data) {
     var idNewDoc = '';
     var parentId = $$$('treeDocs').getSelectedItem().id;
     var pagetitle = $$$('newDocForm').getValues().pagetitle;
-    webix.ajax().post("[+url+]?mode=saveNewDoc", { parent: parentId, pagetitle: pagetitle, template: '[+templatesItems+]', published: 0 },
+
+    webix.ajax().post("[+url+]?mode=saveNewDoc", { parent: parentId, pagetitle: pagetitle, published: 0 },
         function(id) {
             $$$('grid').add({
                 id: id,
@@ -416,7 +417,7 @@ function to_json(workbook) {
 
                                         this.hideOverlay()
                                     },
-                                    "onBeforeRender":function(data) {
+                                    "onBeforeRender": webix.once(function(data) {
                                         //Для правильного отображения картинок, вставленных в контент
                                         for(var key in data.pull){
                                             if (data.pull.hasOwnProperty(key)) {
@@ -426,7 +427,7 @@ function to_json(workbook) {
                                             data.pull[key].content = content;
                                             }
                                         }
-                                    },
+                                    }),
                                     "onEditorChange": function(id, value) {
                                         //if (!value) return false;
                                         webix.ajax().post("[+url+]?mode=setData", { id: id.row, field: id.column, value: value }, function(text) {

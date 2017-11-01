@@ -30,6 +30,8 @@ class yagData extends modResource{
 					$this->tvList[] = $row['name'];
 					$this->tvListIDs[$row['name']] = $row['id'];
 				}
+				$this->table = $this->makeTable($this->table);
+				$this->TVTable = $this->makeTable($this->TVTable);
     }
 
 		//Обновляем значение одной строки
@@ -76,7 +78,7 @@ class yagData extends modResource{
 
 		//Обновленяем статус публикации
 		public function updatePub($ids, $pub){
-			$SQL= "UPDATE {$this->makeTable($this->table)} SET published ='".$pub."' WHERE  `{$this->pkName}` IN (".$ids.")";
+			$SQL= "UPDATE {$this->table} SET published ='".$pub."' WHERE  `{$this->pkName}` IN (".$ids.")";
 			$this->query($SQL);
 			if($this->modx->db->getAffectedRows()) return true;
 			return false;
@@ -89,9 +91,11 @@ class yagData extends modResource{
 			return false;
 		}
 
+		//Добавление нового документа
 	  public function newDoc($item){
 	  	$this->create($item);
-
+	  	$neighborTpl = $this->modx->db->makeArray($this->modx->db->select('template', $this->table, "parent = {$this->field['parent']}"));
+	  	$item['template'] = $neighborTpl[0]['template'];
 	  	foreach ($item as $key => $value) {
 					$this->set($key, $value);
 				}
