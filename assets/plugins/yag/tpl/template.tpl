@@ -13,14 +13,15 @@
     right: 10px;
 }
 
-.deletedRow {
-    background-color: #EEAAAA;
-}
-
 .unPub{
     opacity: 0.5;
     background-color: #cecece;
     color: #111;
+}
+
+
+.deletedRow {
+    background-color: #EEAAAA;
 }
 
 </style>
