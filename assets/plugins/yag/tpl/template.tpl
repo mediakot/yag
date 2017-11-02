@@ -189,6 +189,7 @@ function to_json(workbook) {
     return JSON.stringify(result["Data"]);
 };
 (function($) {
+    var heightModal = $(window).height() / 1.5; //высота модальный окон
     var loaded = false;
     $('#documentPane').on('click', '#yag_tab', function() {
         if (!loaded) {
@@ -463,6 +464,7 @@ function to_json(workbook) {
                                                     tinymce.init({
                                                         selector: 'textarea.tinyMCE',
                                                         toolbar: 'undo redo | styleselect | bold italic | link image',
+                                                        min_height: heightModal,
                                                     })
                                                     break;
                                             }
@@ -501,7 +503,7 @@ function to_json(workbook) {
                     view: "window",
                     id: "rtWindow",
                     width: 800,
-                    height: $(window).height() / 1.5,
+                    height: heightModal,
                     resize: true,
                     position: "center",
                     modal: true,
@@ -556,7 +558,7 @@ function to_json(workbook) {
                                 //Добавление нового документа
                                 view: "form",
                                 id: "newDocForm",
-                                height: 600,
+                                height: heightModal,
                                 elements: [{ view: "text", label: "Pagetitle", name: "pagetitle" }, ]
                             }
                         ]
