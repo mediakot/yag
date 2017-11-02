@@ -529,7 +529,7 @@ function to_json(workbook) {
                     id: "newDoc",
                     move: true,
                     width: $(window).width() - 10,
-                    height: $(window).height() / 1.5,
+                    height: heightModal,
                     resize: true,
                     position: "center",
                     modal: true,
