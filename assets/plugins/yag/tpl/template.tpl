@@ -260,12 +260,14 @@ function to_json(workbook) {
                                         })
                                         switch ($$$("ops").getValue()) {
                                             case "1":
+                                                $$$("grid").removeRowCss(chIds, "unPub");
                                                 webix.ajax().post("[+url+]?mode=publish", { ids: chIds },
                                                     function(text) {
                                                         webix.message(text, "info");
                                                     });
                                                 break;
                                             case "2":
+                                                $$$("grid").addRowCss(chIds, "unPub");
                                                 webix.ajax().post("[+url+]?mode=unPublish", { ids: chIds }, function(text) {
                                                     webix.message(text, "info");
                                                 });
