@@ -34,7 +34,7 @@
  * @internal    @legacy_names YetAnotherGrid
  * @author      mkot
  * @firstupdate  06.09.2017
- * @lastupdate 31.10.2017
+ * @lastupdate 02.11.2017
  */
 
  return require MODX_BASE_PATH.'assets/plugins/yag/plugin.yag.php';
