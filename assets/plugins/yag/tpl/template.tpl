@@ -501,7 +501,7 @@ function to_json(workbook) {
                     view: "window",
                     id: "rtWindow",
                     width: 800,
-                    //height:600,
+                    height: $(window).height() / 1.5,
                     resize: true,
                     position: "center",
                     modal: true,
