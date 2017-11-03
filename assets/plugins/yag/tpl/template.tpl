@@ -372,7 +372,6 @@ function to_json(workbook) {
                                 template: "{common.first()} {common.prev()} {common.pages()} {common.next()} {common.last()}",
                                 animate: true,
                                 size: [+sizePager+],
-                                group: 5,
                             }]
                         },
                         {
@@ -401,7 +400,7 @@ function to_json(workbook) {
                                          this.showOverlay("Загрузка...");
                                     },
                                     "onAfterLoad": function() {
-                                        this.adjustRowHeight("content");
+
                                         //Действия с помеченными на удаление документами
                                         if (showDeleted) {
                                             $$$("grid").data.each(function(obj) {
@@ -419,8 +418,11 @@ function to_json(workbook) {
                                             deletedItems.each(function(obj) { $$$('grid').remove(obj.id) })
                                         }
 
-
-                                        this.hideOverlay()
+                                        //Если есть поле контент, выравниваем высоту по этому полю
+                                        for (var key in this.config.columns){
+                                            if(this.config.columns[key].id =='content')this.adjustRowHeight("content");
+                                        }
+                                        this.hideOverlay();
                                     },
                                     "onBeforeRender": function(data) {
                                         //Для правильного отображения картинок, вставленных в контент
@@ -492,7 +494,6 @@ function to_json(workbook) {
                             padding: 7,
                             cols: [{ id: "pagerB", view: "pager", template: "{common.first()} {common.prev()} {common.pages()} {common.next()} {common.last()}" }],
                             size: [+sizePager+],
-                            group: 5,
                         }
                     ]
                 });

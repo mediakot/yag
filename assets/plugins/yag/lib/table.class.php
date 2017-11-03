@@ -45,35 +45,6 @@ class yagData extends modResource{
 				}
 				$this->save(true,false);
 				return ($this->modx->db->getAffectedRows()>0);
-
-
-				// $table = $this->table;
-				// $id = $this->pkName;
-
-			 //  //Б - Безопасность?
-				// foreach ($item as $key => $value) {
-				// 	$itemVal[$key] = $this->escape($value);
-				// }
-				// if (in_array($itemVal['field'], $this->chboxFields)){
-				// 	 $itemVal['value'] = ($itemVal['value']=="true") ? 1:0;
-				// }
-				// if (in_array($itemVal['field'], $this->tvList)){
-				// 	$table = 'site_tmplvar_contentvalues';
-				// 	$id  = 'contentid';
-				// 	$andTmplvarid = " AND tmplvarid =".$this->tvListIDs[$itemVal['field']];
-				// 	$tmplvarid = $itemVal['field'];
-				// 	$itemVal['field'] = 'value';
-				// }
-
-				// $SQL = "UPDATE {$this->makeTable($table)} SET {$itemVal['field']} ='{$itemVal['value']}' WHERE `{$id}` = {$itemVal['id']}". $andTmplvarid;
-				// $this->query($SQL);
-				// ///Если нет строки в таблице, то вставляем
-
-				// if (!$this->modx->db->getAffectedRows()){
-				// 	$SQL = "INSERT INTO {$this->makeTable($table)} (tmplvarid,contentid,value) VALUES ({$this->tvListIDs[$tmplvarid]},{$itemVal['id']}, {$itemVal['value']})";
-				// 		$this->query($SQL);
-				// }
-
 			}
 
 		//Обновленяем статус публикации
