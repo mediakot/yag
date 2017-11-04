@@ -21,6 +21,8 @@ class YAGcore extends Plugin
     public $table = 'site_content';
     public $tvTable = 'site_tmplvars';
     public $tv_tmplts = 'site_tmplvar_templates';
+    private $debug = true;
+    private $defaultFields = array();
     private $tableConfig = ''; //Конфиг таблицы
     private $unEditable =array('id'); //Поля, которые не следует  редактировать
     private $modalFields =array('content'); //Поля, для которых нужно модальное окно
@@ -30,12 +32,24 @@ class YAGcore extends Plugin
 public function __construct($modx, $lang_attribute = 'en', $_lang)
     {
         $this->id = $this->modx->documentObject['id'];
-        $this->tvTable=$modx->getFullTableName($this->tvTable);
+        $this->table = $modx->getFullTableName($this->table);
+        $this->tvTable = $modx->getFullTableName($this->tvTable);
         $this->tv_tmplts=$modx->getFullTableName($this->tv_tmplts);
         Plugin::__construct($modx,$lang_attribute = 'en');
         $this->_lang = $_lang;
         $this->langExtend();
+        $this->getDefaultFields();
         $this->tableHeader();
+    }
+
+    //Получаем стандартные поля из базы
+    private function getDefaultFields(){
+        $SQL = "SHOW COLUMNS FROM {$this->table}";
+        $res = $this->modx->db->query($SQL);
+        while ( $row = $this->modx->db->getRow($res)) {
+            $this->defaultFields[]=$row['Field'];
+        }
+        return $this;
     }
 
     public function prerender()
@@ -88,8 +102,8 @@ public function __construct($modx, $lang_attribute = 'en', $_lang)
         array_unshift($headTitles, array("id",0.5),array("ch",0.5));
         $sort = "raw";
         foreach ($headTitles as $key => $value) {
-            //Если есть в _lang массиве переменная, значит это стандартное поле, иначе TV
-            if ($this->_lang[$value[0]]){
+            //Если есть в _defaultFields массиве переменная, значит это стандартное поле, иначе TV
+            if (in_array($value[0], $this->defaultFields)){
                 $header = 'header:"'.$this->_lang[$value[0]].'"';
             }
             else{
@@ -132,19 +146,10 @@ public function __construct($modx, $lang_attribute = 'en', $_lang)
             }
             unset($tvCaption);
 
-    //         //Простой текстовый редактор
-    //         $editor = in_array($value[0], $this->unEditable) ? '' :'editor:"text",';
-    //         //TinyMCE
-    //         $editor = !in_array($value[0], $this->modalFields) ? $editor :'editor:"richtext",';
-    //         //Checkbox
-    //         $editor = in_array($value[0], $this->chboxFields) || $tvCaption['type']=='checkbox' ? 'template:"{common.checkbox()}", options:{
-    // "true":"1","false":"0","undefined":"0"},' : $editor;
-    //         //image
-    //         $editor = $tvCaption['type'] == 'image' ? 'template: "<input type=text value=/#images#><img src=/#images#>", editor:"imageField",' : $editor;
-
             if ($value[0] =='pagetitle') $header = 'header:["'.$this->_lang[$value[0]].'", {content:"textFilter"}]';
             $this->tableConfig .= '{id:"'.$value[0].'",'.$editor.' '. $header.', fillspace:'.$value[1].',sort:"'.$sort.'"},';
         }
+        if ($this->debug) $this->modx->logEvent(123, 1, var_export($this->tableConfig,true) , 'Debug core yag (tableConfig)');
         return $this;
     }
 
@@ -183,8 +188,6 @@ public function __construct($modx, $lang_attribute = 'en', $_lang)
     //для сопоставления имён полей и языковых переменных
     private function langExtend()
         {
-
-            $this->_lang['longtitle'] = $this->_lang["long_title"];
             $this->_lang['longtitle'] = $this->_lang["long_title"];
             $this->_lang['description'] = $this->_lang["resource_description"];
             $this->_lang['published']  =  $this->_lang['resource_opt_is_published'];
@@ -192,7 +195,6 @@ public function __construct($modx, $lang_attribute = 'en', $_lang)
             $this->_lang['introtext'] = $this->_lang["resource_description"];
             $this->_lang['content'] = $this->_lang["resource_content"];
             $this->_lang['menutitle'] = $this->_lang["resource_opt_menu_title"];
-
             return $this->_lang;
         }
 
@@ -205,8 +207,8 @@ public function __construct($modx, $lang_attribute = 'en', $_lang)
     public function getTVCaption($tvName){
         $tvCaption='';
         if($tvName){
-            $query = "SELECT caption,type,elements FROM $this->tvTable as tvs LEFT JOIN $this->tv_tmplts as tvt ON (tvs.id = tvt.tmplvarid) WHERE  tvs.name='".$tvName."' AND tvt.templateid IN (".$this->params['templatesItems'].")";
-            $res = $this->modx->db->query($query);
+            $SQL = "SELECT caption,type,elements FROM $this->tvTable as tvs LEFT JOIN $this->tv_tmplts as tvt ON (tvs.id = tvt.tmplvarid) WHERE  tvs.name='".$tvName."' AND tvt.templateid IN (".$this->params['templatesItems'].")";
+            $res = $this->modx->db->query($SQL);
             $tvCaption = $this->modx->db->getRow($res);
             if($tvCaption) return $tvCaption;
             return false;
