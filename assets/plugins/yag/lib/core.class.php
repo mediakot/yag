@@ -21,7 +21,7 @@ class YAGcore extends Plugin
     public $table = 'site_content';
     public $tvTable = 'site_tmplvars';
     public $tv_tmplts = 'site_tmplvar_templates';
-    private $debug = true;
+    private $debug = false;
     private $defaultFields = array();
     private $tableConfig = ''; //Конфиг таблицы
     private $unEditable =array('id'); //Поля, которые не следует  редактировать
