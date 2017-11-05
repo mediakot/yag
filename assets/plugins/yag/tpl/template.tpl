@@ -199,6 +199,8 @@ function to_json(workbook) {
                 webix.ui({
                     container: "yag_container",
                     type:"clean",
+                    responsive:true,
+                    position:"flex",
                     rows: [
                         { view: "toolbar",
                             elements: [
